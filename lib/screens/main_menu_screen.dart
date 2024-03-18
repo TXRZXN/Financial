@@ -2,13 +2,10 @@ import 'dart:io';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:http/http.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:play/model/money_account_model.dart';
 import 'package:play/screens/add_screen.dart';
 import 'package:play/screens/mutual_fund.dart';
-import 'package:play/screens/purpose.dart';
-import 'package:play/screens/xo_screen.dart';
 import 'package:play/theme/style.dart';
 import 'package:play/utils/common.dart';
 import 'package:play/utils/lifecycle_watcher_state.dart';
@@ -452,7 +449,6 @@ class _MainMenuScreenState extends LifecycleWatcherState<MainMenuScreen> {
   }
 
   void addNewlist() async {
-    List<MoneyAccount> list;
     await Navigator.push(
       context,
       MaterialPageRoute(
@@ -510,10 +506,10 @@ class _MainMenuScreenState extends LifecycleWatcherState<MainMenuScreen> {
     DateTime now = DateTime.now();
     lastUpdated = "${now.day}/${now.month}/${now.year}";
     // for (var element in moneyAcc!) {
-    //   print(element.bankName);
+    //   debugPrint(element.bankName);
     // }
     // moneyAcc![13].icon = "lib/assets/picture/AIA.png";
-    // print(moneyAcc![6]);
+    // debugPrint(moneyAcc![6]);
     safeToPref();
     await getValueFromPref();
   }
@@ -533,7 +529,7 @@ class _MainMenuScreenState extends LifecycleWatcherState<MainMenuScreen> {
       (a, b) => a.type!.compareTo(b.type!),
     );
     for (var element in moneyAcc!) {
-      print(element.bankName);
+      debugPrint(element.bankName);
       if (element.type!.startsWith("1")) {
         one.add(element);
       } else if (element.type!.startsWith("2")) {
@@ -549,9 +545,9 @@ class _MainMenuScreenState extends LifecycleWatcherState<MainMenuScreen> {
     moneyAcc!.addAll(one);
     moneyAcc!.addAll(two);
     moneyAcc!.addAll(three);
-    print("------------------------------");
+    debugPrint("------------------------------");
     for (var element in moneyAcc!) {
-      print("${element.bankName} : ${element.money}");
+      debugPrint("${element.bankName} : ${element.money}");
     }
 
     safeToPref();
