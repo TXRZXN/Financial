@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:play/model/money_account_model.dart';
+import 'package:play/utils/common.dart';
 import 'package:play/utils/size_config.dart';
+import 'package:play/widget/dialog_widget.dart';
 import 'package:play/widget/modal_round_progress_bar.dart';
 import 'package:play/widget/transparent_button.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AddListScreen extends StatefulWidget {
   const AddListScreen({super.key});
@@ -17,6 +20,7 @@ class _AddListScreenState extends State<AddListScreen> {
   TextEditingController moneyController = TextEditingController();
   TextEditingController detailController = TextEditingController();
   TextEditingController nameController = TextEditingController();
+  List<MoneyAccount>? moneyAcc;
 
   List<String> list = [
     "",
@@ -27,13 +31,45 @@ class _AddListScreenState extends State<AddListScreen> {
   String dropdownValue = "";
   MoneyAccount newData = MoneyAccount();
 
+  @override
+  void initState() {
+    getValueFromPref();
+    super.initState();
+  }
+
   void onSave() {
     newData.bankName = nameController.text;
     newData.detail = detailController.text;
     newData.icon = "lib/assets/picture/dntknow.png";
     newData.money = double.parse(moneyController.text);
     newData.type = dropdownValue;
-    Navigator.pop(context, newData.toString());
+    moneyAcc!.add(newData);
+    safeToPref();
+    Navigator.pop(context);
+  }
+
+  Future<void> getValueFromPref() async {
+    String? list;
+    final pref = await SharedPreferences.getInstance();
+    list = pref.getString("List");
+
+    if (list != null) {
+      moneyAcc = parseMoneyAccountsFromString(list);
+    }
+    setState(() {});
+  }
+
+  void safeToPref() async {
+    final pref = await SharedPreferences.getInstance();
+    pref.setString("List", moneyAcc.toString());
+    showDialog(
+      context: context,
+      builder: (context) => SuccessDialog(
+          message: "Save Success",
+          onPress: () {
+            Navigator.pop(context);
+          }),
+    );
   }
 
   @override

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:play/model/money_account_model.dart';
 import 'package:play/widget/default_widget.dart';
 
 void changeScreen(BuildContext context, Widget widget) async {
@@ -23,7 +24,9 @@ void changeScreenRemoveUntil(
 void showDefaultDialog(BuildContext context, Widget widget) {
   Navigator.of(context).push(PageRouteBuilder(
     opaque: false,
-    pageBuilder: (ctx, _, __) => DefaultDialog( widget: widget,),
+    pageBuilder: (ctx, _, __) => DefaultDialog(
+      widget: widget,
+    ),
     transitionsBuilder: (ctx, anim1, anim2, child) {
       final curvedValue = Curves.easeInOutBack.transform(anim1.value) - 1.0;
       return Transform(
@@ -36,4 +39,17 @@ void showDefaultDialog(BuildContext context, Widget widget) {
     },
     transitionDuration: const Duration(milliseconds: 500),
   ));
+}
+
+List<MoneyAccount> parseMoneyAccountsFromString(String string) {
+  String removeSquareBrackets = "";
+  if (string.length >= 2) {
+    removeSquareBrackets = string.substring(1, string.length - 2);
+  }
+  List<String> accountStrings = removeSquareBrackets.split(',,');
+  List<MoneyAccount> test = [];
+  for (int i = 0; i < accountStrings.length; i++) {
+    test.add(MoneyAccount.fromString(accountStrings[i]));
+  }
+  return test;
 }

@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:play/model/money_account_model.dart';
 import 'package:play/screens/add_screen.dart';
@@ -53,16 +54,21 @@ class _MainMenuScreenState extends LifecycleWatcherState<MainMenuScreen> {
   // SSO 12833
   // Binanace 311.78 * 33.00 = 10288.74
 
-  //*14/12/2566
-  // True 10000
+  //*18/3/2567
   // DIME 10000
+  // True 10000
   // LHB 10000
-  // SCBEZ 13000
-  // SCB 5500
-  // SCBAM 13000
-  // LHF 25823 (1990)
-  // SSO 13733 (900)
-  // Binanace 353.78 * 33.00 = 11,674.74
+  // SCBEZ 10000
+  // SCB 50000
+  // SCBAM 17000
+  // Binanace 440 * 33.00 = 14535.18
+  // Gold True 100
+  // Stock Dime 123.97
+  // ETF Jitta 10000
+  // Bond Jitta 10000
+  // SSO 15533
+  // LHF 29803
+  // AIA 12000
 
   //7/3/2567
   List<MoneyAccount> fistAccount = [
@@ -447,16 +453,14 @@ class _MainMenuScreenState extends LifecycleWatcherState<MainMenuScreen> {
 
   void addNewlist() async {
     List<MoneyAccount> list;
-    String newList = await Navigator.push(
+    await Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => const AddListScreen(),
       ),
     );
-    list = parseMoneyAccountsFromString(newList);
-    moneyAcc!.add(list[0]);
+    await getValueFromPref();
     sortList();
-    safeToPref();
     setState(() {});
   }
 
@@ -496,19 +500,6 @@ class _MainMenuScreenState extends LifecycleWatcherState<MainMenuScreen> {
     setState(() {});
   }
 
-  List<MoneyAccount> parseMoneyAccountsFromString(String string) {
-    String removeSquareBrackets = "";
-    if (string.length >= 2) {
-      removeSquareBrackets = string.substring(1, string.length - 2);
-    }
-    List<String> accountStrings = removeSquareBrackets.split(',,');
-    List<MoneyAccount> test = [];
-    for (int i = 0; i < accountStrings.length; i++) {
-      test.add(MoneyAccount.fromString(accountStrings[i]));
-    }
-    return test;
-  }
-
   void updateDetailByCode() async {
     String? list;
     final pref = await SharedPreferences.getInstance();
@@ -519,10 +510,10 @@ class _MainMenuScreenState extends LifecycleWatcherState<MainMenuScreen> {
     for (var element in moneyAcc!) {
       print(element.bankName);
     }
-
-    // moneyAcc![6].bankName = "Binance";
+    // moneyAcc![13].icon = "lib/assets/picture/AIA.png";
     // print(moneyAcc![6]);
-    // safeToPref();
+    safeToPref();
+    await getValueFromPref();
   }
 
   void sortList() async {
@@ -535,7 +526,11 @@ class _MainMenuScreenState extends LifecycleWatcherState<MainMenuScreen> {
     moneyAcc!.sort(
       (a, b) => a.type!.compareTo(b.type!),
     );
+    for (var element in moneyAcc!) {
+      print(element.bankName);
+    }
     safeToPref();
+    await getValueFromPref();
   }
 
   @override
@@ -915,6 +910,13 @@ class _MainMenuScreenState extends LifecycleWatcherState<MainMenuScreen> {
           context: context,
           title: "Mutual",
           onPress: () => changeScreen(context, const FundScreen()),
+        ),
+        buildMenu(
+          context: context,
+          title: "Up",
+          onPress: () {
+            sortList();
+          },
         ),
       ],
     );
