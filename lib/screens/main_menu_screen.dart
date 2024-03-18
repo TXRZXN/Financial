@@ -55,20 +55,20 @@ class _MainMenuScreenState extends LifecycleWatcherState<MainMenuScreen> {
   // Binanace 311.78 * 33.00 = 10288.74
 
   //*18/3/2567
-  // DIME 10000
-  // True 10000
-  // LHB 10000
-  // SCBEZ 10000
-  // SCB 50000
-  // SCBAM 17000
-  // Binanace 440 * 33.00 = 14535.18
-  // Gold True 100
-  // Stock Dime 123.97
-  // ETF Jitta 10000
-  // Bond Jitta 10000
-  // SSO 15533
-  // LHF 29803
-  // AIA 12000
+  //   Dime : 10000.0
+  // LHB : 10000.0
+  // SCB : 50000.0
+  // SCBEZ : 10000.0
+  // True : 10000.0
+  // Binance : 14535.18
+  // GoldTrueMoney : 100.0
+  // JittaMoney : 10000.0
+  // JittaThematic : 10000.0
+  // SCBAM : 17000.0
+  // StockDime : 123.97
+  // AIA : 12000.0
+  // LHFund : 29803.0
+  // SSO : 15533.0
 
   //7/3/2567
   List<MoneyAccount> fistAccount = [
@@ -518,6 +518,10 @@ class _MainMenuScreenState extends LifecycleWatcherState<MainMenuScreen> {
 
   void sortList() async {
     String? list;
+    List<MoneyAccount> one = [];
+    List<MoneyAccount> two = [];
+    List<MoneyAccount> three = [];
+
     final pref = await SharedPreferences.getInstance();
     list = pref.getString("List");
     if (list != null) {
@@ -528,7 +532,26 @@ class _MainMenuScreenState extends LifecycleWatcherState<MainMenuScreen> {
     );
     for (var element in moneyAcc!) {
       print(element.bankName);
+      if (element.type!.startsWith("1")) {
+        one.add(element);
+      } else if (element.type!.startsWith("2")) {
+        two.add(element);
+      } else if (element.type!.startsWith("3")) {
+        three.add(element);
+      }
     }
+    one.sort((a, b) => a.bankName!.compareTo(b.bankName!));
+    two.sort((a, b) => a.bankName!.compareTo(b.bankName!));
+    three.sort((a, b) => a.bankName!.compareTo(b.bankName!));
+    moneyAcc!.clear();
+    moneyAcc!.addAll(one);
+    moneyAcc!.addAll(two);
+    moneyAcc!.addAll(three);
+    print("------------------------------");
+    for (var element in moneyAcc!) {
+      print("${element.bankName} : ${element.money}");
+    }
+
     safeToPref();
     await getValueFromPref();
   }
