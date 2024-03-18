@@ -507,9 +507,11 @@ class _MainMenuScreenState extends LifecycleWatcherState<MainMenuScreen> {
     if (list != null) {
       moneyAcc = parseMoneyAccountsFromString(list);
     }
-    for (var element in moneyAcc!) {
-      print(element.bankName);
-    }
+    DateTime now = DateTime.now();
+    lastUpdated = "${now.day}/${now.month}/${now.year}";
+    // for (var element in moneyAcc!) {
+    //   print(element.bankName);
+    // }
     // moneyAcc![13].icon = "lib/assets/picture/AIA.png";
     // print(moneyAcc![6]);
     safeToPref();
@@ -934,13 +936,13 @@ class _MainMenuScreenState extends LifecycleWatcherState<MainMenuScreen> {
           title: "Mutual",
           onPress: () => changeScreen(context, const FundScreen()),
         ),
-        buildMenu(
-          context: context,
-          title: "Up",
-          onPress: () {
-            sortList();
-          },
-        ),
+        // buildMenu(
+        //   context: context,
+        //   title: "Up",
+        //   onPress: () {
+        //     updateDetailByCode();
+        //   },
+        // ),
       ],
     );
   }
