@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:play/model/money_account_model.dart';
 import 'package:play/screens/add_screen.dart';
+import 'package:play/screens/money_management.dart';
 import 'package:play/screens/mutual_fund.dart';
 import 'package:play/theme/style.dart';
 import 'package:play/utils/common.dart';
@@ -929,8 +930,13 @@ class _MainMenuScreenState extends LifecycleWatcherState<MainMenuScreen> {
         ),
         buildMenu(
           context: context,
-          title: "Mutual",
+          title: "Calculate Profit Funds",
           onPress: () => changeScreen(context, const FundScreen()),
+        ),
+        buildMenu(
+          context: context,
+          title: "Calculate PositionSize",
+          onPress: () => changeScreen(context, const MoneyManagement()),
         ),
         // buildMenu(
         //   context: context,
