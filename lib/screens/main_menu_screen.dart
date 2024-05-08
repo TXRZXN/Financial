@@ -68,7 +68,7 @@ class _MainMenuScreenState extends LifecycleWatcherState<MainMenuScreen> {
   // LHFund : 29803.0
   // SSO : 15533.0
 
-  //7/3/2567
+  //8/5/2567
   List<MoneyAccount> fistAccount = [
     MoneyAccount(
       money: 10000,
@@ -80,13 +80,6 @@ class _MainMenuScreenState extends LifecycleWatcherState<MainMenuScreen> {
     ),
     MoneyAccount(
       money: 10000,
-      bankName: "True",
-      detail: "อัตราดอกเบี้ย <5000 = 2% , 5001-10000 += 2% ",
-      icon: "lib/assets/picture/true.png",
-      type: "1 => เงินสดถอนได้",
-    ),
-    MoneyAccount(
-      money: 10000,
       bankName: "LHB",
       detail:
           "จ่ายดอกเบี้ยทุกวันที่ 30 มิถุนายน และ 31 ธันวาคม อัตราดอกเบี้ยคือ <10001 = 6% ",
@@ -94,116 +87,85 @@ class _MainMenuScreenState extends LifecycleWatcherState<MainMenuScreen> {
       type: "1 => เงินสดถอนได้",
     ),
     MoneyAccount(
-      money: 10000,
+      money: 45000,
       bankName: "SCB",
       detail: "บัญชีรับเงินเดือน และไว้กระจายเงินในการลงทุน",
       icon: "lib/assets/picture/scb.png",
       type: "1 => เงินสดถอนได้",
     ),
     MoneyAccount(
-      money: 12000,
+      money: 10000,
       bankName: "SCBEZ",
       detail: "เงินสำรองฉุกเฉินฝากเพิ่มเดือนละ 1000 ",
       icon: "lib/assets/picture/scb.png",
       type: "1 => เงินสดถอนได้",
     ),
     MoneyAccount(
-      money: 12000,
+      money: 10000,
+      bankName: "True",
+      detail: "อัตราดอกเบี้ย <5000 = 2% , 5001-10000 += 2% ",
+      icon: "lib/assets/picture/true.png",
+      type: "1 => เงินสดถอนได้",
+    ),
+    MoneyAccount(
+      money: 12000.0,
+      bankName: "JittaThematic",
+      type: "2 => Investment ไม่ควรถอน",
+      icon: "lib/assets/picture/JittaThematic.png",
+      detail: "Jitta Thematic",
+    ),
+    MoneyAccount(
+      money: 12000.0,
+      bankName: "JittaMoney",
+      type: "2 => Investment ไม่ควรถอน",
+      icon: "lib/assets/picture/JittaMoney.png",
+      detail: "Jitta Thematic",
+    ),
+    MoneyAccount(
+      money: 19000,
       bankName: "SCBAM",
       detail: "ฝากเพิ่มเดือนละ 1000 (ไม่รวมกำไร/ขาดทุน)",
       icon: "lib/assets/picture/scbam.png",
       type: "2 => Investment ไม่ควรถอน",
     ),
     MoneyAccount(
-      money: 10288,
+      money: 585.86,
+      bankName: "StockDime",
+      type: "2 => Investment ไม่ควรถอน",
+      icon: "lib/assets/picture/stock.png",
+      detail: "Stock Dime,",
+    ),
+    MoneyAccount(
+      money: 14535.18,
       bankName: "ฺBinance",
       detail: "(ไม่รวมกำไร/ขาดทุน) 311.78 * 33",
       icon: "lib/assets/picture/binance.png",
       type: "2 => Investment ไม่ควรถอน",
     ),
     MoneyAccount(
-      money: 12833,
+      money: 12000,
+      bankName: "AIA",
+      detail: "AIA ประกันชีวิต 1.6M กรมธรรม",
+      icon: "lib/assets/picture/AIA.png",
+      type: "3 => Investment ถอนไม่ได้",
+    ),
+    MoneyAccount(
+      money: 16733,
       bankName: "SSO",
       detail: "เพิ่มขึ้นประมาณ 900* ต่อเดือน",
       icon: "lib/assets/picture/sso.png",
       type: "3 => Investment ถอนไม่ได้",
     ),
     MoneyAccount(
-      money: 23833,
+      money: 34532.6,
       bankName: "LHFund",
       detail: "เพิ่มขึ้น 5%(2180*) ของเงินเดือน",
       icon: "lib/assets/picture/lhfund.png",
       type: "3 => Investment ถอนไม่ได้",
     ),
-    MoneyAccount(
-      money: 100.0,
-      bankName: "GoldTrueMoney",
-      type: "2 => Investment ไม่ควรถอน",
-      icon: "lib/assets/picture/gold.png",
-      detail: "Gold TrueMoney",
-    ),
-    MoneyAccount(
-        money: 123.97,
-        bankName: "StockDime",
-        type: "2 => Investment ไม่ควรถอน",
-        icon: "lib/assets/picture/stock.png",
-        detail: "Stock Dime,"),
-    MoneyAccount(
-      money: 0.0,
-      bankName: "JittaThematic",
-      type: "2 => Investment ไม่ควรถอน",
-      icon: "lib/assets/picture/JittaThematic.png",
-      detail: "Jitta Thematic",
-    )
   ];
 
   List<MoneyAccount>? moneyAcc;
-
-  //Later
-  // MoneyAccount(
-  //     money: 100,
-  //     bankName: "Gold TrueMoney",
-  //     detail: "34482.7586 ราคาเข้า",
-  //     icon: "lib/assets/picture/gold.png",
-  //     type: "2 => Investment ไม่ควรถอน",
-  //   ),
-  //   MoneyAccount(
-  //     money: 123.97,
-  //     bankName: "Stock TrueMoney",
-  //     detail: "35.82",
-  //     icon: "lib/assets/picture/stock.png",
-  //     type: "2 => Investment ไม่ควรถอน",
-  //   ),
-
-  // Future<void> getAreaFootball() async {
-  //   Map<String, dynamic>? data;
-  //   var response = FootballApi().getResourcePreload(query: data);
-  //   response.listen(
-  //     (event) {
-  //       event.when(
-  //         loading: () {
-  //           _handler?.show();
-  //           debugPrint("response: loading...");
-  //         },
-  //         success: (AreaResponse? data) async {
-  //           _handler?.dismiss();
-  //           debugPrint("response Success --> ${data!.toJson()}");
-  //         },
-  //         failure: (NetworkExceptions? error) {
-  //           _handler?.dismiss();
-  //           debugPrint(
-  //               "response: failure -> ${NetworkExceptions.getErrorMessage(error)}");
-  //           showDialog(
-  //             context: context,
-  //             builder: (ctx) => ErrorDialog(
-  //               message: error.toString(),
-  //             ),
-  //           );
-  //         },
-  //       );
-  //     },
-  //   );
-  // }
 
   @override
   void initState() {
@@ -507,10 +469,11 @@ class _MainMenuScreenState extends LifecycleWatcherState<MainMenuScreen> {
     DateTime now = DateTime.now();
     lastUpdated = "${now.day}/${now.month}/${now.year}";
     // for (var element in moneyAcc!) {
-    //   debugPrint(element.bankName);
+    // debugPrint("${element.bankName}");
     // }
-    // moneyAcc![13].icon = "lib/assets/picture/AIA.png";
-    // debugPrint(moneyAcc![6]);
+    // moneyAcc![5].type = "3 => Investment ถอนไม่ได้";
+    // debugPrint(moneyAcc![5].bankName);
+    sortList();
     safeToPref();
     await getValueFromPref();
   }
@@ -698,7 +661,7 @@ class _MainMenuScreenState extends LifecycleWatcherState<MainMenuScreen> {
               ),
             ),
             Text(
-              "Total : $totalMoney THB",
+              "Total : ${totalMoney.toStringAsFixed(2)} THB",
               style: const TextStyle(
                 color: Colors.white,
                 fontSize: 20,
@@ -940,7 +903,7 @@ class _MainMenuScreenState extends LifecycleWatcherState<MainMenuScreen> {
         ),
         // buildMenu(
         //   context: context,
-        //   title: "Up",
+        //   title: "Updated By code",
         //   onPress: () {
         //     updateDetailByCode();
         //   },
