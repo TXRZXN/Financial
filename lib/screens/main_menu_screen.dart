@@ -7,6 +7,7 @@ import 'package:play/model/money_account_model.dart';
 import 'package:play/screens/add_screen.dart';
 import 'package:play/screens/money_management.dart';
 import 'package:play/screens/mutual_fund.dart';
+import 'package:play/screens/other_port.dart';
 import 'package:play/theme/style.dart';
 import 'package:play/utils/common.dart';
 import 'package:play/utils/lifecycle_watcher_state.dart';
@@ -68,7 +69,7 @@ class _MainMenuScreenState extends LifecycleWatcherState<MainMenuScreen> {
   // LHFund : 29803.0
   // SSO : 15533.0
 
-  //8/5/2567
+  //1/7/2567
   List<MoneyAccount> fistAccount = [
     MoneyAccount(
       money: 10000,
@@ -87,7 +88,7 @@ class _MainMenuScreenState extends LifecycleWatcherState<MainMenuScreen> {
       type: "1 => เงินสดถอนได้",
     ),
     MoneyAccount(
-      money: 45000,
+      money: 39000,
       bankName: "SCB",
       detail: "บัญชีรับเงินเดือน และไว้กระจายเงินในการลงทุน",
       icon: "lib/assets/picture/scb.png",
@@ -108,21 +109,21 @@ class _MainMenuScreenState extends LifecycleWatcherState<MainMenuScreen> {
       type: "1 => เงินสดถอนได้",
     ),
     MoneyAccount(
-      money: 12000.0,
+      money: 14000.0,
       bankName: "JittaThematic",
       type: "2 => Investment ไม่ควรถอน",
       icon: "lib/assets/picture/JittaThematic.png",
       detail: "Jitta Thematic",
     ),
     MoneyAccount(
-      money: 12000.0,
+      money: 14000.0,
       bankName: "JittaMoney",
       type: "2 => Investment ไม่ควรถอน",
       icon: "lib/assets/picture/JittaMoney.png",
       detail: "Jitta Thematic",
     ),
     MoneyAccount(
-      money: 19000,
+      money: 21000,
       bankName: "SCBAM",
       detail: "ฝากเพิ่มเดือนละ 1000 (ไม่รวมกำไร/ขาดทุน)",
       icon: "lib/assets/picture/scbam.png",
@@ -150,14 +151,14 @@ class _MainMenuScreenState extends LifecycleWatcherState<MainMenuScreen> {
       type: "3 => Investment ถอนไม่ได้",
     ),
     MoneyAccount(
-      money: 16733,
+      money: 17933,
       bankName: "SSO",
       detail: "เพิ่มขึ้นประมาณ 900* ต่อเดือน",
       icon: "lib/assets/picture/sso.png",
       type: "3 => Investment ถอนไม่ได้",
     ),
     MoneyAccount(
-      money: 34532.6,
+      money: 39106,
       bankName: "LHFund",
       detail: "เพิ่มขึ้น 5%(2180*) ของเงินเดือน",
       icon: "lib/assets/picture/lhfund.png",
@@ -182,7 +183,7 @@ class _MainMenuScreenState extends LifecycleWatcherState<MainMenuScreen> {
   }
 
   void calTotal() async {
-    await checkBiometrics();
+    // await checkBiometrics();
     await getValueFromPref();
     totalMoney = 0;
     cashMoney = 0;
@@ -200,6 +201,7 @@ class _MainMenuScreenState extends LifecycleWatcherState<MainMenuScreen> {
         }
       }
     }
+    isAuth = true;
     setState(() {});
   }
 
@@ -213,22 +215,27 @@ class _MainMenuScreenState extends LifecycleWatcherState<MainMenuScreen> {
     }
     if (!mounted) return;
     if (canCheckBiometrics) {
+      print("checkBiometrics =$canCheckBiometrics");
       authenticateWithBiometrics();
+      // isAuth = true;
+      setState(() {});
     }
   }
 
   Future<void> authenticateWithBiometrics() async {
     bool authenticated = false;
     try {
+      print("Try authenticateWithBiometrics");
       authenticated = await auth.authenticate(
-          localizedReason:
-              'Scan your fingerdebugPrint (or face or whatever) to authenticate',
-          useErrorDialogs: true,
-          stickyAuth: true,
-          biometricOnly: true);
+        localizedReason:
+            'Scan your fingerdebugPrint (or face or whatever) to authenticate',
+        useErrorDialogs: true,
+        stickyAuth: true,
+        biometricOnly: true,
+      );
       setState(() {});
     } on PlatformException catch (e) {
-      debugPrint(e.message);
+      debugPrint("catch : ${e.message}");
       setState(() {});
       return;
     }
@@ -851,6 +858,12 @@ class _MainMenuScreenState extends LifecycleWatcherState<MainMenuScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        buildMenu(
+          context: context,
+          title: "Port TH",
+          onPress: () => changeScreen(context, const PortTH()),
+        ),
+
         buildMenu(
           context: context,
           title: "Updated 1 Month",
