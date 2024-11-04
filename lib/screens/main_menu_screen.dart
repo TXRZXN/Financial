@@ -31,14 +31,14 @@ class _MainMenuScreenState extends LifecycleWatcherState<MainMenuScreen> {
   double cashMoney = 0;
   double invest = 0;
   double reverseInvest = 0;
-  double salary = 28590; //รวมค่าครองชีพ
-  String lastUpdated = "23/11/2566";
+  double salary = 33200; //รวมค่าครองชีพ
+  String lastUpdated = "4/11/2587";
   TextEditingController moneycontroller = TextEditingController();
   TextEditingController salarycontroller = TextEditingController();
   TextEditingController detailcontroller = TextEditingController();
 
   final LocalAuthentication auth = LocalAuthentication();
-  bool isAuth = false;
+  // bool isAuth = false;
   int touchedSectionTwo = -1;
   int touchedSectionOne = -1;
 
@@ -69,7 +69,37 @@ class _MainMenuScreenState extends LifecycleWatcherState<MainMenuScreen> {
   // LHFund : 29803.0
   // SSO : 15533.0
 
-  //1/7/2567
+  //*1/7/2567
+  // Dime : 10000.0
+  // LHB : 10000.0
+  // SCB : 39000.0
+  // SCBEZ : 10000.0
+  // True : 10000.0
+  // Binance : 14535.18
+  // JittaMoney : 14000.0
+  // JittaThematic : 14000.0
+  // SCBAM : 21000.0
+  // StockDime : 123.97
+  // AIA : 12000.0
+  // LHFund : 39106.0
+  // SSO : 17933.0
+
+  //*4/11/2567
+  // Dime : 10000.0
+  // LHB : 10000.0
+  // SCB : 16500.0
+  // SCBEZ : 10000.0
+  // True : 10000.0
+  // Binance : 14535.18
+  // JittaMoney : 18000.0
+  // JittaThematic : 18000.0
+  // SCBAM : 25000.0
+  // StockDime : 123.97
+  // AIA : 12000.0
+  // LHFund : 49811.0
+  // SSO : 22733.0
+
+  //4/11/2567
   List<MoneyAccount> fistAccount = [
     MoneyAccount(
       money: 10000,
@@ -88,7 +118,7 @@ class _MainMenuScreenState extends LifecycleWatcherState<MainMenuScreen> {
       type: "1 => เงินสดถอนได้",
     ),
     MoneyAccount(
-      money: 39000,
+      money: 16500,
       bankName: "SCB",
       detail: "บัญชีรับเงินเดือน และไว้กระจายเงินในการลงทุน",
       icon: "lib/assets/picture/scb.png",
@@ -109,21 +139,21 @@ class _MainMenuScreenState extends LifecycleWatcherState<MainMenuScreen> {
       type: "1 => เงินสดถอนได้",
     ),
     MoneyAccount(
-      money: 14000.0,
+      money: 18000.0,
       bankName: "JittaThematic",
       type: "2 => Investment ไม่ควรถอน",
       icon: "lib/assets/picture/JittaThematic.png",
       detail: "Jitta Thematic",
     ),
     MoneyAccount(
-      money: 14000.0,
+      money: 18000.0,
       bankName: "JittaMoney",
       type: "2 => Investment ไม่ควรถอน",
       icon: "lib/assets/picture/JittaMoney.png",
       detail: "Jitta Thematic",
     ),
     MoneyAccount(
-      money: 21000,
+      money: 25000,
       bankName: "SCBAM",
       detail: "ฝากเพิ่มเดือนละ 1000 (ไม่รวมกำไร/ขาดทุน)",
       icon: "lib/assets/picture/scbam.png",
@@ -151,14 +181,14 @@ class _MainMenuScreenState extends LifecycleWatcherState<MainMenuScreen> {
       type: "3 => Investment ถอนไม่ได้",
     ),
     MoneyAccount(
-      money: 17933,
+      money: 22733,
       bankName: "SSO",
       detail: "เพิ่มขึ้นประมาณ 900* ต่อเดือน",
       icon: "lib/assets/picture/sso.png",
       type: "3 => Investment ถอนไม่ได้",
     ),
     MoneyAccount(
-      money: 39106,
+      money: 49811,
       bankName: "LHFund",
       detail: "เพิ่มขึ้น 5%(2180*) ของเงินเดือน",
       icon: "lib/assets/picture/lhfund.png",
@@ -201,52 +231,50 @@ class _MainMenuScreenState extends LifecycleWatcherState<MainMenuScreen> {
         }
       }
     }
-    isAuth = true;
+    // isAuth = true;
     setState(() {});
   }
 
-  Future<void> checkBiometrics() async {
-    late bool canCheckBiometrics;
-    try {
-      canCheckBiometrics = await auth.canCheckBiometrics;
-    } on PlatformException catch (e) {
-      canCheckBiometrics = false;
-      debugPrint(e.message);
-    }
-    if (!mounted) return;
-    if (canCheckBiometrics) {
-      print("checkBiometrics =$canCheckBiometrics");
-      authenticateWithBiometrics();
-      // isAuth = true;
-      setState(() {});
-    }
-  }
+  // Future<void> checkBiometrics() async {
+  //   late bool canCheckBiometrics;
+  //   try {
+  //     canCheckBiometrics = await auth.canCheckBiometrics;
+  //   } on PlatformException catch (e) {
+  //     canCheckBiometrics = false;
+  //     debugPrint(e.message);
+  //   }
+  //   if (!mounted) {
+  //     return;
+  //   }
+  //   if (canCheckBiometrics) {
+  //     authenticateWithBiometrics();
+  //     setState(() {});
+  //   }
+  // }
 
-  Future<void> authenticateWithBiometrics() async {
-    bool authenticated = false;
-    try {
-      print("Try authenticateWithBiometrics");
-      authenticated = await auth.authenticate(
-        localizedReason:
-            'Scan your fingerdebugPrint (or face or whatever) to authenticate',
-        useErrorDialogs: true,
-        stickyAuth: true,
-        biometricOnly: true,
-      );
-      setState(() {});
-    } on PlatformException catch (e) {
-      debugPrint("catch : ${e.message}");
-      setState(() {});
-      return;
-    }
-    if (!mounted) return;
-    isAuth = authenticated;
-    setState(() {});
-
-    if (!authenticated) {
-      debugPrint("exit"); // exit(0);
-    }
-  }
+  // Future<void> authenticateWithBiometrics() async {
+  //   bool authenticated = false;
+  //   try {
+  //     authenticated = await auth.authenticate(
+  //       localizedReason:
+  //           'Scan your fingerprint (or face or whatever) to authenticate',
+  //       useErrorDialogs: true,
+  //       stickyAuth: true,
+  //       biometricOnly: true,
+  //     );
+  //     setState(() {});
+  //   } on PlatformException catch (e) {
+  //     debugPrint("catch : ${e.message}");
+  //     setState(() {});
+  //     return;
+  //   }
+  //   if (!mounted) return;
+  //   isAuth = authenticated;
+  //   setState(() {})
+  //   if (!authenticated) {
+  //     debugPrint("exit"); // exit(0);
+  //   }
+  // }
 
   Future<void> getValueFromPref() async {
     double? newSalary;
@@ -256,6 +284,9 @@ class _MainMenuScreenState extends LifecycleWatcherState<MainMenuScreen> {
     list = pref.getString("List");
     newSalary = pref.getDouble("Salary");
     updated = pref.getString("Updated");
+    debugPrint("List : $list");
+    debugPrint("newSalary : $newSalary");
+    debugPrint("updated : $updated");
     if (newSalary != null) {
       salary = newSalary;
       setState(() {});
@@ -278,8 +309,6 @@ class _MainMenuScreenState extends LifecycleWatcherState<MainMenuScreen> {
     for (var element in moneyAcc!) {
       if (element.bankName == "SCB") {
         element.money = element.money! - 3000; //invest
-        //element.money = element.money! - 1000; //insurance
-        //element.money = element.money! + 1500; //saraly
       } else if (element.bankName == "SCBAM") {
         element.money = element.money! + 1000;
       } else if (element.bankName == "JittaThematic") {
@@ -287,18 +316,11 @@ class _MainMenuScreenState extends LifecycleWatcherState<MainMenuScreen> {
       } else if (element.bankName == "JittaMoney") {
         element.money = element.money! + 1000;
       } else if (element.bankName == "SSO") {
-        element.money = element.money! + 600;
+        element.money = element.money! + 750;
       } else if (element.bankName == "LHFund") {
         element.money = element.money! + (salary * 0.08);
       }
     }
-    //Bank
-    // moneyAcc![3].money = (moneyAcc![3].money! - 4000);
-    // moneyAcc![5].money = (moneyAcc![5].money! + 1000);
-    //SSO-LHFund
-    // moneyAcc![7].money = (moneyAcc![7].money! + 900);
-    // moneyAcc![8].money = (moneyAcc![8].money! + 1990);
-
     DateTime now = DateTime.now();
     lastUpdated = "${now.day}/${now.month}/${now.year}";
 
@@ -354,10 +376,10 @@ class _MainMenuScreenState extends LifecycleWatcherState<MainMenuScreen> {
                   lastUpdated = "${now.day}/${now.month}/${now.year}";
                   moneyAcc![index].money = double.parse(moneycontroller.text);
                   moneyAcc![index].detail = detailcontroller.text;
-                  Navigator.pop(context);
                   safeToPref();
                   getValueFromPref();
                   setState(() {});
+                  Navigator.pop(context);
                 }),
           )
         ],
@@ -475,9 +497,11 @@ class _MainMenuScreenState extends LifecycleWatcherState<MainMenuScreen> {
     }
     DateTime now = DateTime.now();
     lastUpdated = "${now.day}/${now.month}/${now.year}";
-    // for (var element in moneyAcc!) {
-    // debugPrint("${element.bankName}");
-    // }
+    for (var element in moneyAcc!) {
+      debugPrint("money : ${element.money}");
+      debugPrint("money ceil : ${element.money!.ceil().toDouble()}");
+      // element.money = element.money!.ceil().toDouble();
+    }
     // moneyAcc![5].type = "3 => Investment ถอนไม่ได้";
     // debugPrint(moneyAcc![5].bankName);
     sortList();
@@ -571,18 +595,12 @@ class _MainMenuScreenState extends LifecycleWatcherState<MainMenuScreen> {
               } else if (sizingInformation.isTablet) {
                 return Container(color: Colors.yellow);
               }
-              return isAuth
-                  ? TabBarView(
-                      children: [
-                        buildbodyMobileDetail(context),
-                        buildbodyMobileChart(context),
-                      ],
-                    )
-                  : const Center(
-                      child: CircularProgressIndicator(
-                        color: Colors.white,
-                      ),
-                    );
+              return TabBarView(
+                children: [
+                  buildbodyMobileDetail(context),
+                  buildbodyMobileChart(context),
+                ],
+              );
             },
           ),
           resizeToAvoidBottomInset: true,
@@ -1073,7 +1091,7 @@ class _MainMenuScreenState extends LifecycleWatcherState<MainMenuScreen> {
 
   @override
   void onInactive() {
-    isAuth = false;
+    // isAuth = false;
     setState(() {});
     debugPrint("onInactive");
   }
@@ -1085,7 +1103,6 @@ class _MainMenuScreenState extends LifecycleWatcherState<MainMenuScreen> {
 
   @override
   void onResumed() async {
-    await checkBiometrics();
     debugPrint("onResumed");
   }
 }
