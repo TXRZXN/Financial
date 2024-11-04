@@ -498,13 +498,17 @@ class _MainMenuScreenState extends LifecycleWatcherState<MainMenuScreen> {
     DateTime now = DateTime.now();
     lastUpdated = "${now.day}/${now.month}/${now.year}";
     for (var element in moneyAcc!) {
+      debugPrint(element.bankName);
       debugPrint("money : ${element.money}");
-      debugPrint("money ceil : ${element.money!.ceil().toDouble()}");
       // element.money = element.money!.ceil().toDouble();
     }
     // moneyAcc![5].type = "3 => Investment ถอนไม่ได้";
-    // debugPrint(moneyAcc![5].bankName);
-    sortList();
+    // debugPrint(moneyAcc![11].bankName);
+    // moneyAcc![11].money = 49811.0;
+    // moneyAcc![12].money = 22733.0;
+    setState(() {});
+
+    // sortList();
     safeToPref();
     await getValueFromPref();
   }
@@ -881,7 +885,7 @@ class _MainMenuScreenState extends LifecycleWatcherState<MainMenuScreen> {
           title: "Port TH",
           onPress: () => changeScreen(context, const PortTH()),
         ),
-
+        
         buildMenu(
           context: context,
           title: "Updated 1 Month",
